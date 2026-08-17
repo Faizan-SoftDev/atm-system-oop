@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}ATM - Withdraw{% endblock %}
+{% block subtitle %}Withdraw Money{% endblock %}
+{% block content %}
+<div style="text-align: center; margin-bottom: 20px;">
+    <div style="font-size: 2.5em; margin-bottom: 8px;">📤</div>
+    <p style="color: #7f8c8d;">Enter amount to withdraw</p>
+</div>
+<form method="POST" action="/withdraw">
+    <div class="form-group">
+        <label>Amount (Rs.)</label>
+        <input type="number" name="amount" min="500" step="100" placeholder="e.g. 10000" required autofocus
+               style="text-align: center; font-size: 1.3em;">
+    </div>
+    <button type="submit" class="btn btn-warning">Withdraw</button>
+</form>
+<a href="/menu" class="back-link">Back to Menu</a>
+{% endblock %}

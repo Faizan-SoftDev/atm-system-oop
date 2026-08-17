@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}ATM - Insert Card{% endblock %}
+{% block subtitle %}Welcome - Insert Your Card{% endblock %}
+{% block content %}
+<div style="text-align: center; margin-bottom: 25px;">
+    <div style="font-size: 3em; margin-bottom: 10px;">💳</div>
+    <p style="color: #7f8c8d;">Enter your card number to begin</p>
+</div>
+<form method="POST" action="/insert-card">
+    <div class="form-group">
+        <label>Card Number</label>
+        <input type="text" name="card_number" placeholder="e.g. CARD-10001" required autofocus>
+    </div>
+    <button type="submit" class="btn btn-primary">Insert Card</button>
+</form>
+<div class="demo-creds">
+    <strong>Demo Credentials:</strong><br>
+    Card: CARD-10001 | PIN: 1234 (Muhammad Ali)<br>
+    Card: CARD-20001 | PIN: 5678 (Ahmed Khan)
+</div>
+{% endblock %}

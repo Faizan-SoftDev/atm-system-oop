@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}ATM - Main Menu{% endblock %}
+{% block subtitle %}Account: {{ account }}{% endblock %}
+{% block content %}
+<div class="menu-grid">
+    <a href="/balance" class="menu-btn balance">
+        <span class="icon">💰</span>Check Balance
+    </a>
+    <a href="/deposit" class="menu-btn deposit">
+        <span class="icon">📥</span>Deposit
+    </a>
+    <a href="/withdraw" class="menu-btn withdraw">
+        <span class="icon">📤</span>Withdraw
+    </a>
+    <a href="/transfer" class="menu-btn transfer">
+        <span class="icon">🔄</span>Transfer
+    </a>
+    <a href="/change-pin" class="menu-btn pin">
+        <span class="icon">🔑</span>Change PIN
+    </a>
+    <a href="/statement" class="menu-btn statement">
+        <span class="icon">📋</span>Statement
+    </a>
+    <a href="/exit" class="menu-btn exit">
+        <span class="icon">🏧</span>Exit & Eject Card
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}ATM - Select Account{% endblock %}
+{% block subtitle %}Select Your Account{% endblock %}
+{% block content %}
+<div style="text-align: center; margin-bottom: 20px;">
+    <div style="font-size: 2.5em; margin-bottom: 8px;">🏦</div>
+    <p style="color: #7f8c8d;">Choose an account to continue</p>
+</div>
+<form method="POST" action="/select-account">
+    {% for acc in accounts %}
+    <label class="account-card" onclick="this.classList.toggle('selected')">
+        <input type="radio" name="account_number" value="{{ acc.account_number }}" required>
+        <div class="type">{{ acc.account_type.value }} Account</div>
+        <div class="number">{{ acc.account_number }}</div>
+    </label>
+    {% endfor %}
+    {% if accounts %}
+    <button type="submit" class="btn btn-primary" style="margin-top: 15px;">Select Account</button>
+    {% else %}
+    <p style="text-align: center; color: #e74c3c;">No accounts linked to this card.</p>
+    {% endif %}
+</form>
+<a href="/" class="back-link">Cancel and eject card</a>
+{% endblock %}

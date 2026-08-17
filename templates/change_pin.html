@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}ATM - Change PIN{% endblock %}
+{% block subtitle %}Change Your PIN{% endblock %}
+{% block content %}
+<div style="text-align: center; margin-bottom: 20px;">
+    <div style="font-size: 2.5em; margin-bottom: 8px;">🔑</div>
+    <p style="color: #7f8c8d;">Enter current and new PIN</p>
+</div>
+<form method="POST" action="/change-pin">
+    <div class="form-group">
+        <label>Current PIN</label>
+        <input type="password" name="old_pin" maxlength="4" pattern="\d{4}" placeholder="****" required
+               style="text-align: center; letter-spacing: 8px;">
+    </div>
+    <div class="form-group">
+        <label>New PIN (4 digits)</label>
+        <input type="password" name="new_pin" maxlength="4" pattern="\d{4}" placeholder="****" required
+               style="text-align: center; letter-spacing: 8px;">
+    </div>
+    <div class="form-group">
+        <label>Confirm New PIN</label>
+        <input type="password" name="confirm_pin" maxlength="4" pattern="\d{4}" placeholder="****" required
+               style="text-align: center; letter-spacing: 8px;">
+    </div>
+    <button type="submit" class="btn btn-success">Change PIN</button>
+</form>
+<a href="/menu" class="back-link">Back to Menu</a>
+{% endblock %}

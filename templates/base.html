@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ATM System{% endblock %}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c2340 0%, #1a3a5c 50%, #0c2340 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .atm-container {
+            background: #f8f9fa;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            width: 420px;
+            min-height: 550px;
+            overflow: hidden;
+        }
+        .atm-header {
+            background: linear-gradient(135deg, #1a5276, #2e86c1);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .atm-header h1 { font-size: 1.5em; margin-bottom: 5px; }
+        .atm-header p { font-size: 0.85em; opacity: 0.85; }
+        .atm-body { padding: 30px; }
+        .atm-footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.8em;
+        }
+        .flash-messages { margin-bottom: 20px; }
+        .flash {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        .flash.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .flash.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .flash.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9em;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #dce1e6;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+        .form-group input:focus { border-color: #2e86c1; }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .btn-primary { background: linear-gradient(135deg, #2e86c1, #1a5276); color: white; }
+        .btn-success { background: linear-gradient(135deg, #27ae60, #1e8449); color: white; }
+        .btn-danger { background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; }
+        .btn-secondary { background: #95a5a6; color: white; }
+        .btn-warning { background: linear-gradient(135deg, #f39c12, #d68910); color: white; }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .menu-btn {
+            padding: 20px 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-align: center;
+        }
+        .menu-btn:hover { transform: scale(1.05); }
+        .menu-btn .icon { font-size: 1.8em; display: block; margin-bottom: 8px; }
+        .menu-btn.balance { background: linear-gradient(135deg, #3498db, #2980b9); color: white; }
+        .menu-btn.deposit { background: linear-gradient(135deg, #27ae60, #229954); color: white; }
+        .menu-btn.withdraw { background: linear-gradient(135deg, #e67e22, #d35400); color: white; }
+        .menu-btn.transfer { background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; }
+        .menu-btn.pin { background: linear-gradient(135deg, #1abc9c, #16a085); color: white; }
+        .menu-btn.statement { background: linear-gradient(135deg, #34495e, #2c3e50); color: white; }
+        .menu-btn.exit { background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; grid-column: 1 / -1; }
+        .balance-display {
+            text-align: center;
+            padding: 30px;
+        }
+        .balance-display .amount {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2e86c1;
+            margin: 15px 0;
+        }
+        .balance-display .label { color: #7f8c8d; font-size: 0.9em; }
+        .account-card {
+            background: linear-gradient(135deg, #2e86c1, #1a5276);
+            color: white;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .account-card:hover { transform: scale(1.02); }
+        .account-card input[type="radio"] { display: none; }
+        .account-card.selected { border: 3px solid #f1c40f; }
+        .account-card .type { font-weight: 600; font-size: 1.1em; }
+        .account-card .number { opacity: 0.85; font-size: 0.9em; }
+        .statement-box {
+            background: #fff;
+            border: 2px solid #dce1e6;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            white-space: pre-line;
+            line-height: 1.6;
+        }
+        .demo-creds {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 0.8em;
+        }
+        .demo-creds strong { color: #f1c40f; }
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #2e86c1;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="atm-container">
+        <div class="atm-header">
+            <h1>ATM BANK PAKISTAN</h1>
+            <p>{% block subtitle %}Secure Banking Terminal{% endblock %}</p>
+        </div>
+        <div class="atm-body">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </div>
+        <div class="atm-footer">
+            Powered by ATM System OOP Design &copy; 2024
+        </div>
+    </div>
+</body>
+</html>

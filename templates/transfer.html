@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}ATM - Transfer{% endblock %}
+{% block subtitle %}Transfer Money{% endblock %}
+{% block content %}
+<div style="text-align: center; margin-bottom: 20px;">
+    <div style="font-size: 2.5em; margin-bottom: 8px;">🔄</div>
+    <p style="color: #7f8c8d;">Transfer to another account</p>
+</div>
+<form method="POST" action="/transfer">
+    <div class="form-group">
+        <label>Receiver Account Number</label>
+        <input type="text" name="receiver" placeholder="e.g. ACC-2001" required autofocus>
+    </div>
+    <div class="form-group">
+        <label>Amount (Rs.)</label>
+        <input type="number" name="amount" min="1" step="1" placeholder="e.g. 5000" required
+               style="text-align: center; font-size: 1.3em;">
+    </div>
+    <button type="submit" class="btn btn-primary">Transfer</button>
+</form>
+<a href="/menu" class="back-link">Back to Menu</a>
+{% endblock %}

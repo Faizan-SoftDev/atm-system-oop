@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}ATM - Deposit{% endblock %}
+{% block subtitle %}Deposit Money{% endblock %}
+{% block content %}
+<div style="text-align: center; margin-bottom: 20px;">
+    <div style="font-size: 2.5em; margin-bottom: 8px;">📥</div>
+    <p style="color: #7f8c8d;">Enter amount to deposit</p>
+</div>
+<form method="POST" action="/deposit">
+    <div class="form-group">
+        <label>Amount (Rs.)</label>
+        <input type="number" name="amount" min="1" step="1" placeholder="e.g. 5000" required autofocus
+               style="text-align: center; font-size: 1.3em;">
+    </div>
+    <button type="submit" class="btn btn-success">Deposit</button>
+</form>
+<a href="/menu" class="back-link">Back to Menu</a>
+{% endblock %}

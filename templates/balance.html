@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}ATM - Balance{% endblock %}
+{% block subtitle %}Account: {{ account }}{% endblock %}
+{% block content %}
+<div class="balance-display">
+    <div class="label">Current Balance</div>
+    <div class="amount">Rs. {{ "{:,.0f}".format(balance) }}</div>
+</div>
+<a href="/menu" class="btn btn-primary" style="display: block; text-align: center; text-decoration: none;">Back to Menu</a>
+{% endblock %}

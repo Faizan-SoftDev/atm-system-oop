@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}ATM - Enter PIN{% endblock %}
+{% block subtitle %}Welcome, {{ card_holder }}{% endblock %}
+{% block content %}
+<div style="text-align: center; margin-bottom: 25px;">
+    <div style="font-size: 3em; margin-bottom: 10px;">🔐</div>
+    <p style="color: #7f8c8d;">Enter your 4-digit PIN</p>
+</div>
+<form method="POST" action="/pin">
+    <div class="form-group">
+        <label>PIN</label>
+        <input type="password" name="pin" maxlength="4" pattern="\d{4}" placeholder="****" required autofocus
+               style="text-align: center; font-size: 1.5em; letter-spacing: 12px;">
+    </div>
+    <button type="submit" class="btn btn-primary">Verify PIN</button>
+</form>
+<a href="/" class="back-link">Cancel and eject card</a>
+{% endblock %}
